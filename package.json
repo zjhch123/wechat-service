@@ -1,0 +1,19 @@
+{
+  "name": "wechat-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [
+    "wechat",
+    "service",
+    "server"
+  ],
+  "author": "zjhch123<zjhch123@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "js-sha1": "^0.6.0",
+    "koa": "^2.11.0",
+    "koa-router": "^7.4.0",
+    "node-fetch": "^2.6.0"
+  }
+}

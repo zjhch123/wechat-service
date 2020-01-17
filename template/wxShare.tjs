@@ -1,0 +1,46 @@
+@{ssr_wxJSFile}
+
+window.wxShare = (() => {
+  const _noop_ = () => {};
+  const data = @{ssr_jsconfig};
+  
+  const updateShareData = (config) => {
+    const {
+      title = '',
+      desc = '',
+      imgUrl,
+    } = config;
+
+    const link = config.link ? config.link : window.location.href;
+    const callback = config.callback ? config.callback : _noop_;
+
+    wx.ready(() => {
+      wx.updateAppMessageShareData({ 
+        title,
+        desc,
+        link,
+        imgUrl,
+        success: callback,
+      });
+  
+      wx.updateTimelineShareData({ 
+        title,
+        link,
+        imgUrl,
+        success: callback,
+      });
+    })
+  };
+
+  wx.config({
+    debug: window.location.search.indexOf('wxsharedebug=true') !== -1,
+    ...data,
+    jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData'],
+  });
+
+  return {
+    setShareData(config) {
+      updateShareData(config);
+    },
+  };
+})();
