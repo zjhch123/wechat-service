@@ -15,5 +15,8 @@
     "koa": "^2.11.0",
     "koa-router": "^7.4.0",
     "node-fetch": "^2.6.0"
-  }
+  },
+  "whitelist": [
+    "hduzplus.xyz"
+  ]
 }

@@ -1,14 +1,20 @@
 const getJSConfig = require('../utils/js-config');
 const getJSWeixin = require('../utils/js-weixin');
 const log = require('../utils/log');
+const package = require('../package.json');
 
 const errorResponse = '() => {}';
+const { whitelist } = package;
+
 
 const validateUrl = (url) => {
   if (process.env.NODE_ENV === 'development') {
     return true;
   }
-  if (!url || url.indexOf('hduzplus.xyz') === -1) {
+  if (!url) {
+    return false;
+  }
+  if (whitelist.filter(item => url.indexOf(item) !== -1).length === 0) {
     return false;
   }
   return true;
