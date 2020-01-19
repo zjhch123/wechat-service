@@ -3,6 +3,11 @@ const fs = require('fs');
 
 const log = require('./log');
 const paths = require('./paths');
+const package = require('../package.json');
+const convertTimestamp = require('./date');
+const { SSR_WX_JS } = require('../constants');
+
+const { wechatJSURL } = package;
 
 const template = fs.readFileSync(paths.wxShareTemplate).toString();
 
@@ -11,10 +16,10 @@ const jsWeixin = {
   expire: null,
 };
 
-const getFromServer = () => fetch(`http://res2.wx.qq.com/open/js/jweixin-1.6.0.js`)
+const getFromServer = () => fetch(wechatJSURL)
   .then(data => data.text())
   .then(data => {
-    jsWeixin.value = template.replace('@{ssr_wxJSFile}', data);
+    jsWeixin.value = template.replace(SSR_WX_JS, data);
     jsWeixin.expire = Date.now() + 24 * 60 * 60 * 1000;
     
     return jsWeixin.value;
@@ -22,7 +27,7 @@ const getFromServer = () => fetch(`http://res2.wx.qq.com/open/js/jweixin-1.6.0.j
 
 module.exports = function getJSWeixin () {
   if (jsWeixin.value !== null && jsWeixin.expire !== null && Date.now() < jsWeixin.expire) {
-    log(`Weixin-template expire: ${jsWeixin.expire}`);
+    log(`Weixin-template expire: ${convertTimestamp(jsWeixin.expire)}`);
     return jsWeixin.value;
   }
 

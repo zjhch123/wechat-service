@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const log = require('./log');
+const convertTimestamp = require('./date');
 
 const accessToken = {
   value: null,
@@ -22,7 +23,7 @@ const getFromServer = (appId, appSecret) => fetch(`https://api.weixin.qq.com/cgi
 
 module.exports = function getAccessToken (appId, appSecret) {
   if (accessToken.value !== null && accessToken.expire !== null && Date.now() < accessToken.expire) {
-    log(`access-token expire: ${accessToken.expire}`);
+    log(`access-token expire: ${convertTimestamp(accessToken.expire)}`);
     return accessToken.value;
   }
 

@@ -1,35 +1,20 @@
 const getJSConfig = require('../utils/js-config');
 const getJSWeixin = require('../utils/js-weixin');
 const log = require('../utils/log');
-const package = require('../package.json');
-
-const errorResponse = '() => {}';
-const { whitelist } = package;
-
-
-const validateUrl = (url) => {
-  if (process.env.NODE_ENV === 'development') {
-    return true;
-  }
-  if (!url) {
-    return false;
-  }
-  if (whitelist.filter(item => url.indexOf(item) !== -1).length === 0) {
-    return false;
-  }
-  return true;
-};
+const validateUrl = require('../utils/validateUrl');
+const { SSR_JS_CONFIG, JAVASCRIPT_CONTENT_TYPE } = require('../constants');
 
 module.exports = async (ctx, next) => {
   await next();
-  ctx.type = 'application/javascript; charset=utf-8';
+  ctx.type = JAVASCRIPT_CONTENT_TYPE;
+  ctx.body = '';
 
   const {
     referer: url,
   } = ctx.headers;
 
   if (!validateUrl(url)) {
-    ctx.body = errorResponse;
+    log(`[Error] Invalid url: ${url}`);
     return;
   }
 
@@ -38,9 +23,8 @@ module.exports = async (ctx, next) => {
     const jsconfig = await getJSConfig(url);
 
     ctx.body = jsTemplate
-      .replace('@{ssr_jsconfig}', JSON.stringify(jsconfig));
+      .replace(SSR_JS_CONFIG, JSON.stringify(jsconfig));
   } catch (e) {
     log(`[Error] ${e.message}`);
-    ctx.body = '';
   }
 };

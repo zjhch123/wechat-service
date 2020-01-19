@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "start": "node index.js"
+  },
   "keywords": [
     "wechat",
     "service",
@@ -18,5 +22,9 @@
   },
   "whitelist": [
     "hduzplus.xyz"
-  ]
+  ],
+  "wechatJSURL": "http://res2.wx.qq.com/open/js/jweixin-1.6.0.js",
+  "devDependencies": {
+    "cross-env": "^6.0.3"
+  }
 }
