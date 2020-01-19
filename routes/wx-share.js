@@ -1,6 +1,7 @@
 const getJSConfig = require('../utils/js-config');
 const getJSWeixin = require('../utils/js-weixin');
 const getJSShare = require('../utils/js-share');
+const combineScripts = require('../utils/combine-scripts');
 
 module.exports = async (ctx, next) => {
   await next();
@@ -13,5 +14,5 @@ module.exports = async (ctx, next) => {
   const jsWeixinTemplate = await getJSWeixin();
   const jsShareTemplate = getJSShare(jsconfig);
 
-  ctx.body = `${jsWeixinTemplate}\n\n${jsShareTemplate}`;
+  ctx.body = combineScripts(jsWeixinTemplate, jsShareTemplate);
 };
