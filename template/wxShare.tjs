@@ -2,17 +2,19 @@
 
 window.wxShare = (() => {
   const _noop_ = () => {};
+  const debugFlag = 'wxsharedebug=true';
+  const isDebugMode = window.location.href.indexOf(debugFlag) !== -1;
+  const jsApiList = ['updateAppMessageShareData', 'updateTimelineShareData'];
   const data = @{ssr_jsconfig};
   
-  const updateShareData = (config) => {
+  const updateShareData = (config = {}) => {
     const {
-      title = '',
+      title = document.title,
       desc = '',
-      imgUrl,
+      imgUrl = document.querySelector('link[rel~="icon"]').href,
+      callback = _noop_,
+      link = window.location.href,
     } = config;
-
-    const link = config.link ? config.link : window.location.href;
-    const callback = config.callback ? config.callback : _noop_;
 
     wx.ready(() => {
       wx.updateAppMessageShareData({ 
@@ -33,9 +35,9 @@ window.wxShare = (() => {
   };
 
   wx.config({
-    debug: window.location.search.indexOf('wxsharedebug=true') !== -1,
+    debug: isDebugMode,
     ...data,
-    jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData'],
+    jsApiList,
   });
 
   return {
