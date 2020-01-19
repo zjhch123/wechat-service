@@ -1,46 +1,21 @@
-const getJSConfig = require('../utils/js-config');
-const getJSWeixin = require('../utils/js-weixin');
-const log = require('../utils/log');
-const package = require('../package.json');
+const getWXScript = require('../models/wx-script');
+const getShareScript = require('../models/share-script');
+const getWXConfig = require('../utils/wx-config');
+const combineScripts = require('../utils/combine-scripts');
 
-const errorResponse = '() => {}';
-const { whitelist } = package;
-
-
-const validateUrl = (url) => {
-  if (process.env.NODE_ENV === 'development') {
-    return true;
-  }
-  if (!url) {
-    return false;
-  }
-  if (whitelist.filter(item => url.indexOf(item) !== -1).length === 0) {
-    return false;
-  }
-  return true;
-};
+const getJSTicket = require('../models/js-ticket');
 
 module.exports = async (ctx, next) => {
   await next();
-  ctx.type = 'application/javascript; charset=utf-8';
 
   const {
     referer: url,
   } = ctx.headers;
 
-  if (!validateUrl(url)) {
-    ctx.body = errorResponse;
-    return;
-  }
+  const jsTicket = await getJSTicket();
+  const wxScript = await getWXScript();
+  const wxConfig = getWXConfig(jsTicket, url);
+  const shareScript = await getShareScript(wxConfig);
 
-  try {
-    const jsTemplate = await getJSWeixin();
-    const jsconfig = await getJSConfig(url);
-
-    ctx.body = jsTemplate
-      .replace('@{ssr_jsconfig}', JSON.stringify(jsconfig));
-  } catch (e) {
-    log(`[Error] ${e.message}`);
-    ctx.body = '';
-  }
+  ctx.body = combineScripts(wxScript, shareScript);
 };

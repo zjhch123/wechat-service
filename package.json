@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "start": "node index.js",
+    "lint": "eslint -c .eslintrc.json . --ext .js"
+  },
   "keywords": [
     "wechat",
     "service",
@@ -16,7 +21,20 @@
     "koa-router": "^7.4.0",
     "node-fetch": "^2.6.0"
   },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  },
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "whitelist": [
     "hduzplus.xyz"
-  ]
+  ],
+  "wechatJSURL": "http://res2.wx.qq.com/open/js/jweixin-1.6.0.js"
 }
