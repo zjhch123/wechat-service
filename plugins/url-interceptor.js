@@ -1,4 +1,4 @@
-const validateUrl = require('../utils/validateUrl');
+const validateUrl = require('../utils/validate-url');
 
 module.exports = async function errorHandler (ctx, next) {
   const {

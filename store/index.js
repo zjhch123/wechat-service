@@ -14,7 +14,7 @@ class Store {
   register ({
     name,
     source,
-    validate,
+    validate = () => {},
     convert,
   }) {
     this.registors[name] = new Item({ name, validate, convert, source });

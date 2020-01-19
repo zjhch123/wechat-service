@@ -1,7 +1,9 @@
-const getJSConfig = require('../utils/js-config');
-const getJSWeixin = require('../utils/js-weixin');
-const getJSShare = require('../utils/js-share');
+const getWXScript = require('../models/wx-script');
+const getShareScript = require('../models/share-script');
+const getWXConfig = require('../utils/wx-config');
 const combineScripts = require('../utils/combine-scripts');
+
+const getJSTicket = require('../models/js-ticket');
 
 module.exports = async (ctx, next) => {
   await next();
@@ -10,9 +12,10 @@ module.exports = async (ctx, next) => {
     referer: url,
   } = ctx.headers;
 
-  const jsconfig = await getJSConfig(url);
-  const jsWeixinTemplate = await getJSWeixin();
-  const jsShareTemplate = await getJSShare(jsconfig);
+  const jsTicket = await getJSTicket();
+  const wxScript = await getWXScript();
+  const wxConfig = getWXConfig(jsTicket, url);
+  const shareScript = await getShareScript(wxConfig);
 
-  ctx.body = combineScripts(jsWeixinTemplate, jsShareTemplate);
+  ctx.body = combineScripts(wxScript, shareScript);
 };
