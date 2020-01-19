@@ -12,7 +12,7 @@ module.exports = function convertTimestamp (timestamp) {
   const month = '0' + date.getMonth() + 1;
   const day = '0' + date.getDate();
 
-  const formattedDate = `${year}-${month.slice(-2)}-${day.slice(-2)}`
+  const formattedDate = `${year}-${month.slice(-2)}-${day.slice(-2)}`;
 
   return `${formattedDate} ${formattedTime}`;
-}
+};

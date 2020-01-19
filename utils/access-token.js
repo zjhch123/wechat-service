@@ -23,7 +23,7 @@ const getFromServer = (appId, appSecret) => fetch(`https://api.weixin.qq.com/cgi
 
 module.exports = function getAccessToken (appId, appSecret) {
   if (accessToken.value !== null && accessToken.expire !== null && Date.now() < accessToken.expire) {
-    log(`access-token expire: ${convertTimestamp(accessToken.expire)}`);
+    log(`Access-token expire: ${convertTimestamp(accessToken.expire)}`);
     return accessToken.value;
   }
 

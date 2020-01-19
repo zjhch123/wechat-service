@@ -9,7 +9,7 @@ const { SSR_WX_JS } = require('../constants');
 
 const { wechatJSURL } = package;
 
-const template = fs.readFileSync(paths.wxShareTemplate).toString();
+const template = fs.readFileSync(paths.wxJSTemplate).toString();
 
 const jsWeixin = {
   value: null,
@@ -21,7 +21,7 @@ const getFromServer = () => fetch(wechatJSURL)
   .then(data => {
     jsWeixin.value = template.replace(SSR_WX_JS, data);
     jsWeixin.expire = Date.now() + 24 * 60 * 60 * 1000;
-    
+
     return jsWeixin.value;
   });
 

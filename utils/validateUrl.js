@@ -2,7 +2,7 @@ const package = require('../package.json');
 
 const { whitelist } = package;
 
-const validateUrl = (url) => {
+module.exports = function validateUrl (url) {
   if (process.env.NODE_ENV === 'development') {
     return true;
   }
@@ -14,5 +14,3 @@ const validateUrl = (url) => {
   }
   return true;
 };
-
-module.exports = validateUrl;

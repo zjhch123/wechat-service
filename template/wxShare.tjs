@@ -1,5 +1,3 @@
-@{ssr_wxJS}
-
 window.wxShare = (() => {
   const _noop_ = () => {};
   const debugFlag = 'wxsharedebug=true';

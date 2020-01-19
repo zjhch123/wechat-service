@@ -23,7 +23,7 @@ const getFromServer = (accessToken) => fetch(`https://api.weixin.qq.com/cgi-bin/
 
 module.exports = function getJSTicket (accessToken) {
   if (jsTicket.value !== null && jsTicket.expire !== null && Date.now() < jsTicket.expire) {
-    log(`js-ticket expire: ${convertTimestamp(jsTicket.expire)}`);
+    log(`JS-ticket expire: ${convertTimestamp(jsTicket.expire)}`);
     return jsTicket.value;
   }
 
