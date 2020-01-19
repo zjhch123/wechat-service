@@ -20,14 +20,14 @@ class Store {
     this.registors[name] = new Item({ name, validate, convert, source });
   }
 
-  async getValue (name) {
+  async getValue (name, ...args) {
     const item = this.registors[name];
 
     if (!item) {
       return undefined;
     }
 
-    const value = await item.getValue();
+    const value = await item.getValue(...args);
     return value;
   }
 

@@ -32,14 +32,14 @@ class Item {
     this.expire = null;
   }
 
-  async getValue () {
+  async getValue (...args) {
     if (this.isValid()) {
       log(`${this.name} expire: ${convertTimestamp(this.expire)}`);
       return this.value;
     }
 
     log(`${this.name} is invalid, restoring...`);
-    const rawData = await this.source();
+    const rawData = await this.source(...args);
 
     await this.validate(rawData);
 
