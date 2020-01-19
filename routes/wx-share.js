@@ -12,7 +12,7 @@ module.exports = async (ctx, next) => {
 
   const jsconfig = await getJSConfig(url);
   const jsWeixinTemplate = await getJSWeixin();
-  const jsShareTemplate = getJSShare(jsconfig);
+  const jsShareTemplate = await getJSShare(jsconfig);
 
   ctx.body = combineScripts(jsWeixinTemplate, jsShareTemplate);
 };
