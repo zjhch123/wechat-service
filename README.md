@@ -1,10 +1,8 @@
 # Usage
 
-Please add your server IP and domain to the whitelist in the Wechat management system at first.
+**Please add your server IP and domain to the whitelist in the Wechat management system at first, and keep the domain consistent with the whitelist defined in the `package.json`.**
 
 You should create the `appid` and `appsecret` file in the root path before start.
-
-The whitelist is defined in the `package.json`.
 
 ```html
 <script>
