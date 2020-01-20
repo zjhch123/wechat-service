@@ -30,6 +30,7 @@ class Item {
   clear () {
     this.value = null;
     this.expire = null;
+    log(`${this.name} be cleared.`);
   }
 
   async getValue (...args) {

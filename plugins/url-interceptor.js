@@ -1,6 +1,6 @@
 const validateUrl = require('../utils/validate-url');
 
-module.exports = async function errorHandler (ctx, next) {
+module.exports = async function urlInterceptor (ctx, next) {
   const {
     referer: url,
   } = ctx.headers;
