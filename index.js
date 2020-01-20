@@ -2,18 +2,20 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const log = require('./utils/log');
 const wxShare = require('./routes/wx-share');
-const defaultResponse = require('./plugins/default-response');
+const clearAll = require('./routes/clear-all');
+const jsonResponse = require('./plugins/json-response');
+const javascriptResponse = require('./plugins/javascript-response');
 const errorHandler = require('./plugins/error-handler');
 const urlInterceptor = require('./plugins/url-interceptor');
+const appSecretInterceptor = require('./plugins/app-secret-interceptor');
 
 const app = new Koa();
 const router = new Router();
 
-router.get('/wxShare', wxShare);
+router.get('/clearAll', jsonResponse, appSecretInterceptor, clearAll);
+router.get('/wxShare', javascriptResponse, urlInterceptor, wxShare);
 
-app.use(defaultResponse)
-  .use(errorHandler)
-  .use(urlInterceptor)
+app.use(errorHandler)
   .use(router.routes())
   .use(router.allowedMethods());
 
