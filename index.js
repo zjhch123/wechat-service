@@ -4,6 +4,7 @@ const log = require('./utils/log');
 const wxShare = require('./routes/wx-share');
 const clearAll = require('./routes/clear-all');
 const wxAuth = require('./routes/wx-auth');
+const wxCodeAuth = require('./routes/wx-code-auth');
 const jsonResponse = require('./plugins/json-response');
 const javascriptResponse = require('./plugins/javascript-response');
 const errorHandler = require('./plugins/error-handler');
@@ -16,6 +17,7 @@ const router = new Router();
 router.get('/clearAll', jsonResponse, appSecretInterceptor, clearAll);
 router.get('/wxShare', javascriptResponse, urlInterceptor, wxShare);
 router.get('/wxAuth', wxAuth);
+router.get('/wxCodeAuth', wxCodeAuth);
 
 app.use(errorHandler)
   .use(router.routes())
