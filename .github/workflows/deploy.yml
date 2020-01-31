@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - dev-release
+      - master
 
 jobs:
   deploy:
@@ -20,6 +20,6 @@ jobs:
         script: |
           source /etc/profile
           cd ${{secrets.DEPLOY_PATH}}
-          git checkout dev-release
-          git pull origin dev-release
+          git checkout master
+          git pull origin master
           forever restart $(forever list | grep wechat | cut -c24-27)

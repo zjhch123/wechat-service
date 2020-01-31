@@ -14,12 +14,6 @@ const router = new Router();
 
 router.get('/clearAll', jsonResponse, appSecretInterceptor, clearAll);
 router.get('/wxShare', javascriptResponse, urlInterceptor, wxShare);
-router.get('/ping', jsonResponse, async (ctx, next) => {
-  await next();
-  ctx.body = {
-    code: 200,
-  };
-});
 
 app.use(errorHandler)
   .use(router.routes())
