@@ -1,9 +1,10 @@
+const { IS_DEV } = require('../constants');
 const package = require('../package.json');
 
 const { whitelist } = package;
 
 module.exports = function validateUrl (url) {
-  if (process.env.NODE_ENV === 'development') {
+  if (IS_DEV) {
     return true;
   }
   if (!url) {
