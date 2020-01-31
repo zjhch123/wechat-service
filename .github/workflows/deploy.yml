@@ -18,6 +18,7 @@ jobs:
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
         script: |
+          source /etc/profile
           cd ${{secrets.DEPLOY_PATH}}
           git checkout dev-release
           git pull origin dev-release
