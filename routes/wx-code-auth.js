@@ -45,9 +45,9 @@ module.exports = async function wxCodeAuth (ctx, next) {
   await next();
   const {
     code,
-    redirect: redirectURI,
-    postdata: postdataURI,
-    error: errorURI,
+    redirect_uri: redirectURI,
+    postdata_uri: postdataURI,
+    error_uri: errorURI,
   } = ctx.request.query;
 
   try {

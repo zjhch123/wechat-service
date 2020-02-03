@@ -1,8 +1,6 @@
 const { URL } = require('url');
 const { APP_ID } = require('../constants');
-const package = require('../package.json');
-
-const { serverURL } = package;
+const { serverURL } = require('../package.json');
 
 const buildServerRedirectURI = (searchParams) => {
   const baseHost = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:7610' : serverURL;
@@ -23,9 +21,9 @@ module.exports = async function wxAuth (ctx, next) {
   } = ctx.request.query;
 
   const serverRedirectURI = buildServerRedirectURI({
-    redirect: redirect_uri,
-    postdata: postdata_uri,
-    error: error_uri,
+    redirect_uri,
+    postdata_uri,
+    error_uri,
   });
 
   ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APP_ID}&redirect_uri=${serverRedirectURI}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
