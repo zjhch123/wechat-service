@@ -9,7 +9,7 @@ module.exports = function convertTimestamp (timestamp) {
   const formattedTime = `${hours}:${minutes.substr(-2)}:${seconds.substr(-2)}.${millsec.slice(-3)}`;
 
   const year = date.getFullYear();
-  const month = '0' + date.getMonth() + 1;
+  const month = '0' + (parseInt(date.getMonth(), 10) + 1);
   const day = '0' + date.getDate();
 
   const formattedDate = `${year}-${month.slice(-2)}-${day.slice(-2)}`;
