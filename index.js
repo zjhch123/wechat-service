@@ -23,10 +23,11 @@ router.get('/wxShare', javascriptResponse, wxShare);
 
 router.get('/wxAuth',
   searchParamsInterceptor('redirect_uri', 'postdata_uri', 'error_uri'),
+  authDomainInterceptor,
   wxAuth);
 
 router.get('/wxCodeAuth',
-  searchParamsInterceptor('redirect_uri', 'postdata_uri', 'error_uri'),
+  searchParamsInterceptor('code', 'redirect_uri', 'postdata_uri', 'error_uri'),
   authDomainInterceptor,
   wxCodeAuth);
 

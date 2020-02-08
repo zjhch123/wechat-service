@@ -1,14 +1,19 @@
-const url = require('url');
+const { URL } = require('url');
 const { authPostDataURIDomainWhitelist } = require('../package.json');
 
-module.exports = async function authPostDataURIUDomainInterceptor (ctx, next) {
+const whitelist = new Set(authPostDataURIDomainWhitelist);
+
+module.exports = async function authPostDataURIDomainInterceptor (ctx, next) {
   const {
     postdata_uri: postdataURI,
   } = ctx.request.query;
 
-  for (let i = 0; i < authPostDataURIDomainWhitelist.length; i++) {
-    const { host } = url.parse(authPostDataURIDomainWhitelist[i]);
+  const { host: postdataHost } = new URL(postdataURI);
+
+  if (whitelist.has(postdataHost)) {
+    await next();
+    return;
   }
 
-  await next();
+  throw new Error('postdata_uri invalid');
 };
