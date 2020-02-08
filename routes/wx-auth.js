@@ -15,7 +15,7 @@ const buildServerRedirectURI = (searchParams) => {
 module.exports = async function wxAuth (ctx, next) {
   await next();
   const {
-    redirect_uri, // TODO: Will add logic of verifying the domain
+    redirect_uri,
     postdata_uri,
     error_uri,
   } = ctx.request.query;

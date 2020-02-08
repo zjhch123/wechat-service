@@ -7,6 +7,7 @@ const clearAll = require('./routes/clear-all');
 const wxCodeAuth = require('./routes/wx-code-auth');
 const jsonResponse = require('./plugins/json-response');
 const errorHandler = require('./plugins/error-handler');
+const authErrorHandler = require('./plugins/auth-error-handler');
 const javascriptResponse = require('./plugins/javascript-response');
 const appSecretInterceptor = require('./plugins/app-secret-interceptor');
 const authDomainInterceptor = require('./plugins/auth-domain-interceptor');
@@ -29,6 +30,7 @@ router.get('/wxAuth',
 router.get('/wxCodeAuth',
   searchParamsInterceptor('code', 'redirect_uri', 'postdata_uri', 'error_uri'),
   authDomainInterceptor,
+  authErrorHandler,
   wxCodeAuth);
 
 app.use(errorHandler)
