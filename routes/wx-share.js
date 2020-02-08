@@ -5,7 +5,7 @@ const combineScripts = require('../utils/combine-scripts');
 
 const getJSTicket = require('../models/js-ticket');
 
-module.exports = async (ctx, next) => {
+module.exports = async function wxShare (ctx, next) {
   await next();
 
   const {
