@@ -1,8 +1,8 @@
 const { URL } = require('url');
 const { IS_DEV } = require('../constants');
-const { authPostDataURIDomainWhitelist } = require('../package.json');
+const { authPostDataURIHostWhitelist } = require('../package.json');
 
-const whitelist = new Set(authPostDataURIDomainWhitelist);
+const whitelist = new Set(authPostDataURIHostWhitelist);
 
 module.exports = async function authPostDataURIDomainInterceptor (ctx, next) {
   const {
@@ -11,10 +11,10 @@ module.exports = async function authPostDataURIDomainInterceptor (ctx, next) {
 
   const { host: postdataHost } = new URL(decodeURIComponent(postdataURI));
 
-  if (IS_DEV || whitelist.has(postdataHost)) {
+  if (IS_DEV || whitelist.size === 0 || whitelist.has(postdataHost)) {
     await next();
     return;
   }
 
-  throw new Error('postdata_uri invalid');
+  throw new Error('Invalid postdata_uri');
 };
