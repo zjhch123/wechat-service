@@ -32,10 +32,10 @@ window.wxShare.setShareData({
 
 ## wxAuth
 
-**Please set the `authPostDataURIDomainWhitelist` in package.json at first**
+**Please set the `authPostDataURIHostWhitelist` in the package.json at first, or every server can get user information from your service.**
 
 Redirect to `{serverPath}/wxAuth?redirect_uri={}&postdata_uri={}&error_uri={}`, server will redirect user to wechat auth page.
 
 After auth successful, server will post user information to the `postdata_uri`, then user will be redirected to the `redirect_uri`.
 
-If there has any error, server will redirect user to `error_uri`.
+Server will redirect user to `error_uri` if there has any error.

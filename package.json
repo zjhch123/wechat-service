@@ -36,9 +36,7 @@
   "engines": {
     "node": ">=8.10.0"
   },
-  "authPostDataURIDomainWhitelist": [
-    "hduzplus.xyz"
-  ],
+  "authPostDataURIHostWhitelist": [],
   "wechatJSURL": "http://res2.wx.qq.com/open/js/jweixin-1.6.0.js",
   "serverURL": "https://static.hduzplus.xyz"
 }
