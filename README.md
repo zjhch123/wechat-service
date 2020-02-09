@@ -36,6 +36,22 @@ window.wxShare.setShareData({
 
 Redirect to `{serverPath}/wxAuth?redirect_uri={}&postdata_uri={}&error_uri={}`, server will redirect user to wechat auth page.
 
-After auth successful, server will post user information to the `postdata_uri`, then user will be redirected to the `redirect_uri`.
+After auth successfully, server will post user information to the `postdata_uri`, then user will be redirected to the `redirect_uri`.
 
 Server will redirect user to `error_uri` if there has any error.
+
+### User information
+
+```json
+{
+  "openid": "openId",
+  "nickname":"Nickname",
+  "sex": 1,
+  "language": "zh_CN",
+  "city": "杭州",
+  "province": "浙江",
+  "country": "中国",
+  "headimgurl": "user head img url",
+  "privilege": []
+}
+```

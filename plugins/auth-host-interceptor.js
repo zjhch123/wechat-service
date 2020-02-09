@@ -4,7 +4,7 @@ const { authPostDataURIHostWhitelist } = require('../package.json');
 
 const whitelist = new Set(authPostDataURIHostWhitelist);
 
-module.exports = async function authPostDataURIDomainInterceptor (ctx, next) {
+module.exports = async function authPostDataURIHostInterceptor (ctx, next) {
   const {
     postdata_uri: postdataURI,
   } = ctx.request.query;
