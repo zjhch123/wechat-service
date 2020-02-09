@@ -14,18 +14,26 @@ module.exports = async function wxCodeAuth (ctx, next) {
     postdata_uri: postdataURI,
   } = ctx.request.query;
 
+  log(`Auth start, code: ${code}, postdata_uri: ${postdataURI}, redirect_uri: ${redirectURI}`);
+
   const userInfo = await getUserInfo(code);
 
+  log(`Auth successfully, code: ${code}, userInfo:\n${JSON.stringify(userInfo)}`);
+
+  const postTarget = IS_DEV ? 'https://httpbin.org/post' : decodeURIComponent(postdataURI);
+
+  await postUserInfo(postTarget, userInfo)
+    .then(response => {
+      log(`Post userInfo successfully, response status: ${response.status}`);
+    });
+
   if (IS_DEV) {
-    await postUserInfo('https://httpbin.org/post', userInfo).then(data => data.json()).then(data => log(JSON.stringify(data)));
     ctx.body = {
       code: 200,
       data: userInfo,
     };
     return;
   }
-
-  await postUserInfo(decodeURIComponent(postdataURI), userInfo);
 
   ctx.redirect(decodeURIComponent(redirectURI));
 };

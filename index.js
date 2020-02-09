@@ -10,7 +10,7 @@ const errorHandler = require('./plugins/error-handler');
 const authErrorHandler = require('./plugins/auth-error-handler');
 const javascriptResponse = require('./plugins/javascript-response');
 const appSecretInterceptor = require('./plugins/app-secret-interceptor');
-const authDomainInterceptor = require('./plugins/auth-domain-interceptor');
+const authHostInterceptor = require('./plugins/auth-host-interceptor');
 const searchParamsInterceptor = require('./plugins/search-params-interceptor');
 
 const app = new Koa();
@@ -24,12 +24,12 @@ router.get('/wxShare', javascriptResponse, wxShare);
 
 router.get('/wxAuth',
   searchParamsInterceptor('redirect_uri', 'postdata_uri', 'error_uri'),
-  authDomainInterceptor,
+  authHostInterceptor,
   wxAuth);
 
 router.get('/wxCodeAuth',
   searchParamsInterceptor('code', 'redirect_uri', 'postdata_uri', 'error_uri'),
-  authDomainInterceptor,
+  authHostInterceptor,
   authErrorHandler,
   wxCodeAuth);
 

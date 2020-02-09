@@ -28,10 +28,7 @@ async function getUserInfo (code) {
     .then(({ errcode, errmsg, ...userInfo }) => {
       if (errcode) { throw new WechatError(errcode, errmsg); }
 
-      return {
-        ...userInfo,
-        openId,
-      };
+      return userInfo;
     });
 }
 
@@ -44,6 +41,11 @@ async function postUserInfo (postdataURI, userInfo) {
     },
     body: JSON.stringify(userInfo),
     timeout: 5000,
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    return response;
   }).catch((e) => { throw new Error(`Remote server error. - \n ${e.message}`); });
 }
 
