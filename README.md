@@ -1,6 +1,6 @@
 # Usage
 
-**Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform at first.**
+**Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform and add your server url in the package.json at first.**
 
 You should create the `appid` and `appsecret` file in the root path before start.
 
