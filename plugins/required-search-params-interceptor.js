@@ -1,4 +1,4 @@
-module.exports = function searchParamsInterceptor (...params) {
+module.exports = function requiredSearchParamsInterceptor (...params) {
   return async (ctx, next) => {
     const query = ctx.request.query;
     const missing = [];

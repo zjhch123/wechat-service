@@ -9,26 +9,29 @@ const jsonResponse = require('./plugins/json-response');
 const errorHandler = require('./plugins/error-handler');
 const authErrorHandler = require('./plugins/auth-error-handler');
 const javascriptResponse = require('./plugins/javascript-response');
-const appSecretInterceptor = require('./plugins/app-secret-interceptor');
 const authHostInterceptor = require('./plugins/auth-host-interceptor');
-const searchParamsInterceptor = require('./plugins/search-params-interceptor');
+const appSecretInterceptor = require('./plugins/app-secret-interceptor');
+const optionalSearchParamsInterceptor = require('./plugins/optional-search-params-interceptor');
+const requiredSearchParamsInterceptor = require('./plugins/required-search-params-interceptor');
 
 const app = new Koa();
 const router = new Router();
 
 router.get('/clearAll',
-  searchParamsInterceptor('secret'),
+  requiredSearchParamsInterceptor('secret'),
   jsonResponse, appSecretInterceptor, clearAll);
 
 router.get('/wxShare', javascriptResponse, wxShare);
 
 router.get('/wxAuth',
-  searchParamsInterceptor('redirect_uri', 'postdata_uri', 'error_uri'),
+  requiredSearchParamsInterceptor('redirect_uri', 'postdata_uri'),
+  optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
   authHostInterceptor,
   wxAuth);
 
 router.get('/wxCodeAuth',
-  searchParamsInterceptor('code', 'redirect_uri', 'postdata_uri', 'error_uri'),
+  requiredSearchParamsInterceptor('code', 'redirect_uri', 'postdata_uri'),
+  optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
   authHostInterceptor,
   authErrorHandler,
   wxCodeAuth);
