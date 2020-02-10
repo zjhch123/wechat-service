@@ -1,10 +1,12 @@
 # Usage
 
-**Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform and add your server url in the package.json at first.**
+**Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform and set your server url in the package.json at first.**
 
 You should create the `appid` and `appsecret` file in the root path before start.
 
 ## wxShare
+
+### Init
 
 ```html
 <script>
@@ -17,7 +19,11 @@ window.wxShareConfig = {
 }
 </script>
 <script src="{service_path}/wxShare"></script>
+```
 
+### Reset share information
+
+```html
 <script>
 // reset the share config
 window.wxShare.setShareData({
@@ -34,11 +40,11 @@ window.wxShare.setShareData({
 
 **Please set the `authPostDataURIHostWhitelist` in the package.json at first, or every server can get user information from your service.**
 
-Redirect to `{serverPath}/wxAuth?redirect_uri={}&postdata_uri={}&error_uri={}`, server will redirect user to wechat auth page.
+Redirect to `{serverPath}/wxAuth?redirect_uri={}&postdata_uri={}&error_uri={}`, server will redirect user to the wechat auth page.
 
-After auth successfully, server will post user information to the `postdata_uri`, then user will be redirected to the `redirect_uri`.
+After auth successfully, server will post the user information to the `postdata_uri`, then user will be redirected to the `redirect_uri`.
 
-Server will redirect user to `error_uri` if there has any error.
+Server will redirect user to `error_uri` if there has any error. (`error_uri` is optional, the default value is equal to `redirect_uri`)
 
 ### User information
 
