@@ -6,17 +6,18 @@ module.exports = async function authErrorHandler (ctx, next) {
     await next();
   } catch (e) {
     const {
-      error_uri: errorURI,
+      error_uri,
     } = ctx.request.query;
 
-    const redirectURI = new URL(decodeURIComponent(errorURI));
+    const errorURI = new URL(decodeURIComponent(error_uri));
 
     if (e instanceof WechatError) {
-      redirectURI.searchParams.append('errcode', e.errcode);
-      redirectURI.searchParams.append('errmsg', e.errmsg);
+      errorURI.searchParams.append('errcode', e.errcode);
+      errorURI.searchParams.append('errmsg', e.errmsg);
     }
 
-    ctx.redirect(redirectURI.toString());
+    ctx.status = 302;
+    ctx.redirect(errorURI.toString());
     throw e;
   }
 };
