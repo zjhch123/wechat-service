@@ -4,23 +4,25 @@ const {
   getUserInfo,
   postUserInfo,
 } = require('../services/wx-code-auth-service');
+const { auth: { postdataURI } } = require('../package.json');
 
 module.exports = async function wxCodeAuth (ctx, next) {
   await next();
 
   const {
     code,
-    redirect_uri: redirectURI,
-    postdata_uri: postdataURI,
+    redirect_uri,
   } = ctx.request.query;
 
-  log(`Auth start, code: ${code}, postdata_uri: ${postdataURI}, redirect_uri: ${redirectURI}`);
+  const redirectURI = decodeURIComponent(redirect_uri);
+
+  const postTarget = IS_DEV ? 'https://httpbin.org/post' : postdataURI;
+
+  log(`Auth start, code: ${code}, postdata_uri: ${postTarget}, redirect_uri: ${redirectURI}`);
 
   const userInfo = await getUserInfo(code);
 
   log(`Auth successfully, code: ${code}, userInfo:\n${JSON.stringify(userInfo)}`);
-
-  const postTarget = IS_DEV ? 'https://httpbin.org/post' : decodeURIComponent(postdataURI);
 
   await postUserInfo(postTarget, userInfo)
     .then(response => {
@@ -35,5 +37,5 @@ module.exports = async function wxCodeAuth (ctx, next) {
     return;
   }
 
-  ctx.redirect(decodeURIComponent(redirectURI));
+  ctx.redirect(redirectURI);
 };

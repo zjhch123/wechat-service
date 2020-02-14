@@ -9,7 +9,6 @@ const jsonResponse = require('./plugins/json-response');
 const errorHandler = require('./plugins/error-handler');
 const authErrorHandler = require('./plugins/auth-error-handler');
 const javascriptResponse = require('./plugins/javascript-response');
-const authHostInterceptor = require('./plugins/auth-host-interceptor');
 const appSecretInterceptor = require('./plugins/app-secret-interceptor');
 const optionalSearchParamsInterceptor = require('./plugins/optional-search-params-interceptor');
 const requiredSearchParamsInterceptor = require('./plugins/required-search-params-interceptor');
@@ -24,15 +23,13 @@ router.get('/clearAll',
 router.get('/wxShare', javascriptResponse, wxShare);
 
 router.get('/wxAuth',
-  requiredSearchParamsInterceptor('redirect_uri', 'postdata_uri'),
+  requiredSearchParamsInterceptor('redirect_uri'),
   optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
-  authHostInterceptor,
   wxAuth);
 
 router.get('/wxCodeAuth',
-  requiredSearchParamsInterceptor('code', 'redirect_uri', 'postdata_uri'),
+  requiredSearchParamsInterceptor('code', 'redirect_uri'),
   optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
-  authHostInterceptor,
   authErrorHandler,
   wxCodeAuth);
 
