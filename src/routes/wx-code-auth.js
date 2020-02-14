@@ -1,12 +1,16 @@
 const log = require('../utils/log');
-const { IS_DEV } = require('../constants');
+const { IS_DEV, PACKAGE: package } = require('../constants');
 const {
   getUserInfo,
   postUserInfo,
 } = require('../services/wx-code-auth-service');
-const { auth: { postdataURI } } = require('../package.json');
+const authErrorHandler = require('../plugins/auth-error-handler');
+const optionalSearchParamsInterceptor = require('../plugins/optional-search-params-interceptor');
+const requiredSearchParamsInterceptor = require('../plugins/required-search-params-interceptor');
 
-module.exports = async function wxCodeAuth (ctx, next) {
+const { auth: { postdataURI } } = package;
+
+async function wxCodeAuth (ctx, next) {
   await next();
 
   const {
@@ -38,4 +42,15 @@ module.exports = async function wxCodeAuth (ctx, next) {
   }
 
   ctx.redirect(redirectURI);
+}
+
+module.exports = {
+  type: 'get',
+  path: '/wxCodeAuth',
+  middleware: [
+    requiredSearchParamsInterceptor('code', 'redirect_uri'),
+    optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
+    authErrorHandler,
+    wxCodeAuth,
+  ],
 };

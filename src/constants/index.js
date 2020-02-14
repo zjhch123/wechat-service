@@ -1,5 +1,6 @@
 const fs = require('fs');
 const paths = require('../utils/paths');
+const package = require('../../package.json');
 
 const SSR_PLACEHOLDER = name => `@{ssr_${name}}`;
 
@@ -15,4 +16,5 @@ module.exports = {
   APP_ID,
   APP_SECRET,
   IS_DEV,
+  PACKAGE: package,
 };

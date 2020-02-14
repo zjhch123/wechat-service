@@ -1,6 +1,6 @@
 const path = require('path');
-const root = path.resolve(__dirname, '../');
-const template = path.resolve(root, 'templates');
+const root = path.resolve(__dirname, '../../');
+const template = path.resolve(root, 'src', 'templates');
 
 module.exports = {
   appId: path.resolve(root, 'appid'),
