@@ -1,7 +1,7 @@
 {
   "name": "wechat-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "Wechat service for sharing and authentication.",
   "main": "index.js",
   "scripts": {
     "dev": "gulp start",
@@ -19,7 +19,8 @@
     "js-sha1": "^0.6.0",
     "koa": "^2.11.0",
     "koa-router": "^7.4.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "require-dir": "^1.2.0"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",

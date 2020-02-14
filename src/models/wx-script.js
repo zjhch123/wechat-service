@@ -4,8 +4,7 @@ const fs = require('fs');
 const paths = require('../utils/paths');
 const inject = require('../utils/inject');
 const store = require('../store');
-const package = require('../package.json');
-const { SSR_WX_JS } = require('../constants');
+const { SSR_WX_JS, PACKAGE: package } = require('../constants');
 
 const { wechatJSURL } = package;
 
