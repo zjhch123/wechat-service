@@ -4,8 +4,17 @@ const package = require('../../package.json');
 
 const SSR_PLACEHOLDER = name => `@{ssr_${name}}`;
 
-const APP_ID = fs.readFileSync(paths.appId).toString();
-const APP_SECRET = fs.readFileSync(paths.appSecret).toString();
+let APP_ID;
+let APP_SECRET;
+
+try {
+  APP_ID = fs.readFileSync(paths.appId).toString();
+  APP_SECRET = fs.readFileSync(paths.appSecret).toString();
+} catch (e) {
+  APP_ID = '';
+  APP_SECRET = '';
+}
+
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 module.exports = {

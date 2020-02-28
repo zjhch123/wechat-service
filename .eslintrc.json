@@ -5,8 +5,12 @@
     "eslint:recommended",
     "plugin:node/recommended"
   ],
+  "plugins": [
+    "mocha"
+  ],
   "env": {
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "parserOptions": {
     "ecmaVersion": 2020
@@ -15,6 +19,7 @@
     "comma-dangle": ["error", "always-multiline"],
     "no-new": "off",
     "camelcase": "off",
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "node/no-unpublished-require": "off"
   }
 }
