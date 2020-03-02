@@ -7,7 +7,7 @@
     "dev": "gulp start",
     "start": "node index.js",
     "lint": "eslint -c .eslintrc.json . --ext .js",
-    "test": "nyc --reporter=html --reporter=text-summary mocha --file ./test/**/*.test.js"
+    "test": "nyc --reporter=html --reporter=text-summary mocha --file ./test/setup.js ./test/**/*.test.js"
   },
   "keywords": [
     "wechat",
