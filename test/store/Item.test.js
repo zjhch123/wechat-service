@@ -1,9 +1,14 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const Item = require('../../src/store/Item');
+const {
+  mockSource,
+  mockValidate,
+  mockConvert,
+  mockExpireDate,
+} = require('../test-util');
 
 describe('Item.js', () => {
-  const mockExpireDate = Date.now() + 9999999;
   const getItem = ({
     name = 'mock item',
     source = Promise.resolve(),
@@ -21,23 +26,6 @@ describe('Item.js', () => {
       expire,
     });
   };
-
-  const mockSource = (value) => new Promise((resolve, reject) => {
-    resolve({
-      id: 1,
-      value,
-      expire: mockExpireDate,
-      isValid: true,
-    });
-  });
-
-  const mockValidate = (rawData) => new Promise((resolve) => {
-    resolve(rawData.isValid);
-  });
-
-  const mockConvert = (rawData) => new Promise((resolve) => {
-    resolve({ value: rawData.value, expire: rawData.expire });
-  });
 
   it('should return isValid', () => {
     const expire = mockExpireDate;
