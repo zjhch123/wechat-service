@@ -3,7 +3,7 @@ const { mockContext } = require('../test-util');
 const WechatError = require('../../src/errors/wechat-error');
 const authErrorHandler = require('../../src/plugins/auth-error-handler');
 
-describe('app-secret-interceptor.js', () => {
+describe('auth-error-handler.js', () => {
   it('should pass', async () => {
     const { ctx, next } = mockContext({ status: 200 }, () => Promise.resolve());
     await authErrorHandler(ctx, next);
@@ -12,7 +12,7 @@ describe('app-secret-interceptor.js', () => {
 
   it('should be intercepted', async () => {
     let redirect = null;
-    
+
     const error = new WechatError(11440, 'Invalid');
 
     const { ctx, next } = mockContext({
