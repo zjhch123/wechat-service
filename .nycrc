@@ -1,0 +1,19 @@
+{
+  "all": true,
+  "check-coverage": true,
+  "branches": 90,
+  "lines": 90,
+  "functions": 90,
+  "statements": 90,
+  "include": [
+    "src/plugins/**/*.js",
+    "src/services/**/*.js",
+    "src/store/**/*.js",
+    "src/utils/**/*.js"
+  ],
+  "exclude": [
+    "src/utils/log.js",
+    "src/utils/paths.js",
+    "src/utils/date.js"
+  ]
+}
