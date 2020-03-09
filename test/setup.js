@@ -1,15 +1,19 @@
-const constants = require('../src/constants');
+const sinon = require('sinon');
+const fs = require('fs');
+const paths = require('../src/utils/paths');
 const { mockAppId, mockAppSecret } = require('./test-util');
 
-const originalAppId = constants.APP_ID;
-const originalAppSecret = constants.APP_SECRET;
-
 before(() => {
-  constants.APP_ID = mockAppId;
-  constants.APP_SECRET = mockAppSecret;
+  sinon.stub(fs, 'readFileSync')
+    .withArgs(paths.appId)
+    .returns(mockAppId);
+  fs.readFileSync
+    .withArgs(paths.appSecret)
+    .returns(mockAppSecret);
+
+  fs.readFileSync.callThrough();
 });
 
 after(() => {
-  constants.APP_ID = originalAppId;
-  constants.APP_SECRET = originalAppSecret;
+  fs.readFileSync.restore();
 });
