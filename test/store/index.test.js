@@ -16,7 +16,23 @@ describe('store.js', () => {
     expect((await store.getValue('testData'))).to.equal(undefined);
   });
 
-  it('should register', async () => {
+  it('should register without validate', async () => {
+    store.register({
+      name: 'testData',
+      convert: mockConvert,
+      source: mockSource,
+    });
+
+    let value = await store.getValue('testData', 12345);
+    expect(value, 'value').to.equal(12345);
+
+    store.remove('testData');
+
+    value = await store.getValue('testData');
+    expect(value, 'value after remove').to.equal(undefined);
+  });
+
+  it('should register with args', async () => {
     store.register({
       name: 'testData',
       validate: mockValidate,
