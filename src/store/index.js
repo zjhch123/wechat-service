@@ -6,6 +6,7 @@ class Store {
   }
 
   clearAll () {
+    /* istanbul ignore next */
     Object.keys(this.registors).forEach(key => {
       this.registors[key].clear();
     });
