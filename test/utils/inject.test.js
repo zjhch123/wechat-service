@@ -3,7 +3,7 @@ const inject = require('../../src/utils/inject');
 
 describe('inject.js', () => {
   it('should inject string', () => {
-    expect(inject('const a = @{b}', '@{b}', '12345', false), 'inject string').to.equal('const a = 12345');
+    expect(inject('const a = @{b}', '@{b}', '12345'), 'inject string').to.equal('const a = 12345');
   });
 
   it('should inject object', () => {

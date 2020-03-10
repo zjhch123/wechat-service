@@ -10,11 +10,14 @@ describe('optional-search-params-interceptor.js', () => {
       },
     });
 
+    await (optionalSearchParamsInterceptor('defaultValue'))(ctx, next);
+    expect(ctx.request.query.defaultValue, 'default value should be empty string if not set').to.equal('');
+
     await (optionalSearchParamsInterceptor('test', 12345))(ctx, next);
-    expect(ctx.request.query.test, 'default value').to.equal(12345);
+    expect(ctx.request.query.test, 'set default value').to.equal(12345);
 
     await (optionalSearchParamsInterceptor('test', 67890))(ctx, next);
-    expect(ctx.request.query.test, 'the default value should not change').to.equal(12345);
+    expect(ctx.request.query.test, 'the value should not change if the param has existed').to.equal(12345);
 
     await (optionalSearchParamsInterceptor('method', () => 'method'))(ctx, next);
     expect(ctx.request.query.method, 'get the value by function').to.equal('method');
