@@ -33,20 +33,25 @@ async function getUserInfo (code) {
 }
 
 async function postUserInfo (postdataURI, userInfo) {
-  return fetch(postdataURI, {
-    method: 'POST',
-    headers: {
-      'Content-Type': JSON_CONTENT_TYPE,
-      Source: 'Wechat-Service',
-    },
-    body: JSON.stringify(userInfo),
-    timeout: 5000,
-  }).then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok.');
+  try {
+    const response = await fetch(postdataURI, {
+      method: 'POST',
+      headers: {
+        'Content-Type': JSON_CONTENT_TYPE,
+        Source: 'Wechat-Service',
+      },
+      body: JSON.stringify(userInfo),
+      timeout: 5000,
+    });
+
+    if (response.ok) {
+      return response;
+    } else {
+      throw new Error(response.statusText);
     }
-    return response;
-  }).catch((e) => { throw new Error(`Remote server error. - \n ${e.message}`); });
+  } catch (e) {
+    throw new Error(`Remote server error. - \n ${e.message}`);
+  }
 }
 
 module.exports = {

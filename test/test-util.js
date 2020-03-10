@@ -54,6 +54,7 @@ const fetchObject = (value, isSuccess = true, isReject = false) => {
   return isReject ? Promise.reject(value) : Promise.resolve().then(() => ({
     json: () => new Promise((resolve, reject) => !isReject ? resolve(value) : reject(value)),
     ok: isSuccess,
+    statusText: isSuccess ? 'OK' : 'Error',
   }));
 };
 

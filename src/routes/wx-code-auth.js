@@ -28,10 +28,9 @@ async function wxCodeAuth (ctx, next) {
 
   log(`Auth successfully, code: ${code}, userInfo:\n${JSON.stringify(userInfo)}`);
 
-  await postUserInfo(postTarget, userInfo)
-    .then(response => {
-      log(`Post userInfo successfully, response status: ${response.status}`);
-    });
+  const response = await postUserInfo(postTarget, userInfo);
+
+  log(`Post userInfo successfully, response status: ${response.status}|${response.statusText}`);
 
   if (IS_DEV) {
     ctx.body = {

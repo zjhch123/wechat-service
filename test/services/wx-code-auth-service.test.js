@@ -76,7 +76,7 @@ describe('wx-code-auth-service.js', () => {
         await postUserInfo('https://httpbin.org/post?error', {});
       } catch (e) {
         hasError = true;
-        expect(e.message).to.equal('Remote server error. - \n Network response was not ok.');
+        expect(e.message).to.equal('Remote server error. - \n Error');
       }
       expect(hasError, 'should has error').to.equal(true);
     });
