@@ -1,5 +1,5 @@
 const sha1 = require('js-sha1');
-const log = require('./log');
+const logger = require('../logger');
 const getRandomString = require('./random-string');
 const { APP_ID } = require('../constants');
 
@@ -13,7 +13,7 @@ module.exports = function getWXConfig (jsTicket, url) {
   const text = buildText({ jsTicket, nonceStr, timestamp, url });
   const signature = sha1(text).toString();
 
-  log(`Accept: ${text}, signature: ${signature}`);
+  logger.info(`Accept: ${text}, signature: ${signature}`);
 
   return {
     appId: APP_ID,

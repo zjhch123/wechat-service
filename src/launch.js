@@ -1,8 +1,8 @@
 const Router = require('koa-router');
 const requireDir = require('require-dir');
-const log = require('./utils/log');
+const logger = require('./logger');
 
-log('Launch App...');
+logger.info('Launch App...');
 
 const routes = requireDir('./routes');
 
@@ -15,11 +15,11 @@ Object.keys(routes).forEach(key => {
     middleware,
   } = routes[key];
 
-  log(`Register controller, type: ${type}, path: ${path}`);
+  logger.info(`Register controller, type: ${type}, path: ${path}`);
 
   router[type](path, ...middleware);
 });
 
-log('Launch successfully!');
+logger.info('Launch successfully!');
 
 module.exports = router;

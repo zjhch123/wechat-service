@@ -1,4 +1,4 @@
-const log = require('../utils/log');
+const logger = require('../logger');
 const convertTimestamp = require('../utils/date');
 
 class Item {
@@ -30,16 +30,16 @@ class Item {
   clear () {
     this.value = null;
     this.expire = null;
-    log(`${this.name} be cleared.`);
+    logger.info(`${this.name} be cleared.`);
   }
 
   async getValue (...args) {
     if (this.isValid()) {
-      log(`${this.name} expire: ${convertTimestamp(this.expire)}`);
+      logger.info(`${this.name} expire: ${convertTimestamp(this.expire)}`);
       return this.value;
     }
 
-    log(`${this.name} is invalid, restoring...`);
+    logger.info(`${this.name} is invalid, restoring...`);
     const rawData = await this.source(...args);
 
     await this.validate(rawData);
