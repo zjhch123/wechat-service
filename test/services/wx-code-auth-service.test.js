@@ -76,7 +76,7 @@ describe('wx-code-auth-service.js', () => {
         await postUserInfo('https://httpbin.org/post?error', {});
       } catch (e) {
         hasError = true;
-        expect(e.message).to.equal('Remote server error. - \n Error');
+        expect(e.message).to.equal('Remote server error. - Error');
       }
       expect(hasError, 'should has error').to.equal(true);
     });
@@ -87,7 +87,7 @@ describe('wx-code-auth-service.js', () => {
         await postUserInfo('https://httpbin.org/post?serverError', {});
       } catch (e) {
         hasError = true;
-        expect(e.message).to.equal('Remote server error. - \n Server error');
+        expect(e.message).to.equal('Remote server error. - Server error');
       }
       expect(hasError, 'should has error').to.equal(true);
     });

@@ -122,6 +122,7 @@ module.exports = {
   mockAppId,
   mockAppSecret,
   mockExpireDate,
+  mockNow,
   mockSource,
   mockValidate,
   mockConvert,
