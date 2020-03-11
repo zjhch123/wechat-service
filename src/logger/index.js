@@ -16,7 +16,6 @@ const logFormat = [
 
 const dailyRotateConfig = {
   dirname: logPath,
-  datePattern: 'YYYY-MM-DD-HH',
   maxSize: '5m',
   maxFiles: '14d',
 };
