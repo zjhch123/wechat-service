@@ -14,26 +14,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run lint
+    - name: Install dependencies
+      run: npm install
+    - name: Lint
+      run: npm run lint
       env:
         development: true
-    - run: NODE_ENV=development npm run test
+    - name: Test
+      run: NODE_ENV=development npm run test
       env:
         development: true
-    - name: executing remote ssh commands using key
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
-        script: |
-          source /etc/profile
-          cd ${{secrets.DEPLOY_PATH}}
-          git checkout master
-          git fetch origin master
-          git reset --hard origin/master 
-          git pull origin master
-          npm install --only=prod
-          forever restart $(forever list | grep wechat | cut -c24-27)
