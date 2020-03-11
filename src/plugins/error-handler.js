@@ -1,4 +1,4 @@
-const log = require('../utils/log');
+const logger = require('../logger');
 
 module.exports = async function errorHandler (ctx, next) {
   try {
@@ -8,6 +8,6 @@ module.exports = async function errorHandler (ctx, next) {
       ctx.status = 400;
     }
 
-    log(`[Error] ${e.message}`);
+    logger.error(e);
   }
 };

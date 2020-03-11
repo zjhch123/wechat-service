@@ -1,4 +1,4 @@
-const log = require('../utils/log');
+const logger = require('../logger');
 const { IS_DEV, PACKAGE: package } = require('../constants');
 const {
   getUserInfo,
@@ -22,15 +22,15 @@ async function wxCodeAuth (ctx, next) {
 
   const postTarget = IS_DEV ? 'https://httpbin.org/post' : postdataURI;
 
-  log(`Auth start, code: ${code}, postdata_uri: ${postTarget}, redirect_uri: ${redirectURI}`);
+  logger.info(`Auth start, code: ${code}, postdata_uri: ${postTarget}, redirect_uri: ${redirectURI}`);
 
   const userInfo = await getUserInfo(code);
 
-  log(`Auth successfully, code: ${code}, userInfo:\n${JSON.stringify(userInfo)}`);
+  logger.info(`Auth successfully, code: ${code}, userInfo:\n${JSON.stringify(userInfo)}`);
 
   const response = await postUserInfo(postTarget, userInfo);
 
-  log(`Post userInfo successfully, response status: ${response.status}|${response.statusText}`);
+  logger.info(`Post userInfo successfully, response status: ${response.status}|${response.statusText}`);
 
   if (IS_DEV) {
     ctx.body = {
