@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const { mockContext } = require('../test-util');
-const { JSON_CONTENT_TYPE } = require('../../src/constants');
-const jsonResponse = require('../../src/plugins/json-response');
+const { mockContext } = require('../../test-util');
+const { JSON_CONTENT_TYPE } = require('../../../src/constants');
+const jsonResponse = require('../../../src/plugins/json-response');
 
 describe('json-response.js', () => {
   it('should change ctx.type and ctx.body', async () => {

@@ -1,12 +1,12 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const Item = require('../../src/store/Item');
+const Item = require('../../../src/store/Item');
 const {
   mockSource,
   mockValidate,
   mockConvert,
   mockExpireDate,
-} = require('../test-util');
+} = require('../../test-util');
 
 describe('Item.js', () => {
   const getItem = ({

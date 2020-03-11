@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-const { mockContext } = require('../test-util');
-const optionalSearchParamsInterceptor = require('../../src/plugins/optional-search-params-interceptor');
+const { mockContext } = require('../../test-util');
+const optionalSearchParamsInterceptor = require('../../../src/plugins/optional-search-params-interceptor');
 
 describe('optional-search-params-interceptor.js', () => {
   it('should handle the defaultValue logic', async () => {

@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const inject = require('../../src/utils/inject');
+const inject = require('../../../src/utils/inject');
 
 describe('inject.js', () => {
   it('should inject string', () => {

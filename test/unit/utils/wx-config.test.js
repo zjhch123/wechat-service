@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const getWXConfig = require('../../src/utils/wx-config');
-const { mockAppId } = require('../test-util');
+const getWXConfig = require('../../../src/utils/wx-config');
+const { mockAppId } = require('../../test-util');
 
 describe('wx-config.js', () => {
   let mockMathRandom;

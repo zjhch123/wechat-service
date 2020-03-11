@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const log = require('../../src/utils/log');
+const log = require('../../../src/utils/log');
 
 describe('log.js', () => {
   let consoleSpy;

@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const proxyquire = require('proxyquire');
-const WechatError = require('../../src/errors/wechat-error');
+const WechatError = require('../../../src/errors/wechat-error');
 const {
   mockFetch,
   mockSuccessCode,
@@ -8,14 +8,14 @@ const {
   mockExpiredCode,
   mockOpenId,
   mockUserInfo,
-} = require('../test-util');
+} = require('../../test-util');
 
 describe('wx-code-auth-service.js', () => {
   let getUserInfo;
   let postUserInfo;
 
   beforeEach(() => {
-    const dependency = proxyquire('../../src/services/wx-code-auth-service.js', {
+    const dependency = proxyquire('../../../src/services/wx-code-auth-service.js', {
       'node-fetch': mockFetch,
     });
 

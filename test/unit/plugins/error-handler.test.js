@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-const { mockContext } = require('../test-util');
-const errorHandler = require('../../src/plugins/error-handler');
+const { mockContext } = require('../../test-util');
+const errorHandler = require('../../../src/plugins/error-handler');
 
 describe('error-handler.js', () => {
   it('should pass', async () => {

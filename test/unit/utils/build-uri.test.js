@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const buildURI = require('../../src/utils/build-uri');
+const buildURI = require('../../../src/utils/build-uri');
 
 describe('build-uri.js', () => {
   it('should return correct scripts', () => {

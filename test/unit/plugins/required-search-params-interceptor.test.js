@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-const { mockContext } = require('../test-util');
-const requiredSearchParamsInterceptor = require('../../src/plugins/required-search-params-interceptor');
+const { mockContext } = require('../../test-util');
+const requiredSearchParamsInterceptor = require('../../../src/plugins/required-search-params-interceptor');
 
 describe('required-search-params-interceptor.js', () => {
   const params = ['name', 'age', 'birth'];

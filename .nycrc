@@ -6,9 +6,9 @@
   "functions": 90,
   "statements": 90,
   "include": [
-    "src/plugins/**/*.js",
-    "src/services/**/*.js",
-    "src/store/**/*.js",
-    "src/utils/**/*.js"
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "src/launch.js"
   ]
 }

@@ -1,6 +1,6 @@
 const { expect } = require('chai');
-const { mockContext, mockAppSecret } = require('../test-util');
-const appSecretInterceptor = require('../../src/plugins/app-secret-interceptor');
+const { mockContext, mockAppSecret } = require('../../test-util');
+const appSecretInterceptor = require('../../../src/plugins/app-secret-interceptor');
 
 describe('app-secret-interceptor.js', () => {
   it('should pass', async () => {

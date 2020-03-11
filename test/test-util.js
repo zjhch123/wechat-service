@@ -1,7 +1,10 @@
+const { APP_ID, APP_SECRET, PACKAGE: package } = require('../src/constants');
+const { wechatJSURL } = package;
+
 const mockExpireDate = Date.now() + 999999;
 
-const mockAppId = 'wx06f30708fbccb63e';
-const mockAppSecret = '285f895ac9dd49973d36ad0c8704dfb1';
+const mockAppId = APP_ID;
+const mockAppSecret = APP_SECRET;
 const mockSuccessCode = '123456';
 const mockFailedCode = '1234567';
 const mockExpiredCode = '12345678';
@@ -20,6 +23,9 @@ const mockUserInfo = {
   headimgurl: 'headimgurl',
   privilege: [],
 };
+const mockAccessToken = '77775555';
+const mockJSTicket = '66668888';
+const mockWXScript = "console.log('WXShare');";
 
 const mockSource = (value) => new Promise((resolve, reject) => {
   resolve({
@@ -53,7 +59,9 @@ const mockContext = (defaultCtx = {}, defaultNext = () => Promise.resolve()) => 
 const fetchObject = (value, isSuccess = true, isReject = false) => {
   return isReject ? Promise.reject(value) : Promise.resolve().then(() => ({
     json: () => new Promise((resolve, reject) => !isReject ? resolve(value) : reject(value)),
+    text: () => new Promise((resolve, reject) => !isReject ? resolve(value) : reject(value)),
     ok: isSuccess,
+    status: isSuccess ? 200 : 500,
     statusText: isSuccess ? 'OK' : 'Error',
   }));
 };
@@ -96,6 +104,7 @@ const mockFetch = (url) => {
         errmsg: 'Token expired',
       });
       break;
+    case 'https://httpbin.org/post':
     case 'https://httpbin.org/post?success':
       retValue = fetchObject({
         code: 200,
@@ -106,6 +115,22 @@ const mockFetch = (url) => {
       break;
     case 'https://httpbin.org/post?serverError':
       retValue = fetchObject(new Error('Server error'), true, true);
+      break;
+    case `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APP_ID}&secret=${APP_SECRET}`:
+      retValue = fetchObject({
+        access_token: mockAccessToken,
+        expires_in: 30000,
+      });
+      break;
+    case `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${mockAccessToken}&type=jsapi`:
+      retValue = fetchObject({
+        errcode: 0,
+        ticket: mockJSTicket,
+        expires_in: 30000,
+      });
+      break;
+    case wechatJSURL:
+      retValue = fetchObject(mockWXScript);
       break;
     default:
       retValue = fetchObject({
@@ -136,4 +161,5 @@ module.exports = {
   mockRefreshToken,
   mockOpenId,
   mockUserInfo,
+  mockWXScript,
 };
