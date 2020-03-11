@@ -61,5 +61,5 @@ Server will redirect user to `error_uri` if there has any error. (`error_uri` is
   "country": "中国",
   "headimgurl": "user head img url",
   "privilege": []
-}
+} 
 ```
