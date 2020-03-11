@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const combineScripts = require('../../src/utils/combine-scripts');
+const combineScripts = require('../../../src/utils/combine-scripts');
 
 describe('combine-scripts.js', () => {
   it('should return correct scripts', () => {

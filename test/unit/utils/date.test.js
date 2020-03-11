@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const convertTimestamp = require('../../src/utils/date');
-const { mockNow } = require('../test-util');
+const convertTimestamp = require('../../../src/utils/date');
+const { mockNow } = require('../../test-util');
 
 describe('date.js', () => {
   before(() => {

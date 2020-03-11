@@ -1,7 +1,7 @@
 const { expect } = require('chai');
-const { mockContext } = require('../test-util');
-const WechatError = require('../../src/errors/wechat-error');
-const authErrorHandler = require('../../src/plugins/auth-error-handler');
+const { mockContext } = require('../../test-util');
+const WechatError = require('../../../src/errors/wechat-error');
+const authErrorHandler = require('../../../src/plugins/auth-error-handler');
 
 describe('auth-error-handler.js', () => {
   it('should pass', async () => {

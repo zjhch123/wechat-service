@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const paths = require('../../src/utils/paths');
+const paths = require('../../../src/utils/paths');
 
 describe('path.js', () => {
   it('should export object', () => {
@@ -14,8 +14,8 @@ describe('path.js', () => {
   });
 
   it('should contain correct paths', () => {
-    expect(paths.appId.endsWith('appid'), 'appid').to.equal(true);
-    expect(paths.appSecret.endsWith('appsecret'), 'appsecret').to.equal(true);
+    expect(paths.appId.endsWith('appid.dev'), 'appid').to.equal(true);
+    expect(paths.appSecret.endsWith('appsecret.dev'), 'appsecret').to.equal(true);
     expect(paths.wxJSTemplate.endsWith('wxJS.tjs'), 'wxJS.tjs').to.equal(true);
     expect(paths.wxShareTemplate.endsWith('wxShare.tjs'), 'wxShare.tjs').to.equal(true);
   });

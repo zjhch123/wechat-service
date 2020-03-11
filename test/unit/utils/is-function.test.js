@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const isFunction = require('../../src/utils/is-function');
+const isFunction = require('../../../src/utils/is-function');
 
 describe('is-function.js', () => {
   it('should return true', () => {

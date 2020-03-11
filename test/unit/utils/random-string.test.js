@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const getRandomString = require('../../src/utils/random-string');
+const getRandomString = require('../../../src/utils/random-string');
 
 describe('random-string.js', () => {
   let mathRandom;

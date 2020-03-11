@@ -1,10 +1,10 @@
 const { expect } = require('chai');
-const store = require('../../src/store');
+const store = require('../../../src/store');
 const {
   mockSource,
   mockValidate,
   mockConvert,
-} = require('../test-util');
+} = require('../../test-util');
 
 describe('store.js', () => {
   beforeEach(() => {

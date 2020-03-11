@@ -9,11 +9,10 @@ let APP_ID;
 let APP_SECRET;
 
 try {
-  APP_ID = IS_DEV ? 'wx06f30708fbccb63e' : fs.readFileSync(paths.appId).toString();
-  APP_SECRET = IS_DEV ? '285f895ac9dd49973d36ad0c8704dfb1' : fs.readFileSync(paths.appSecret).toString();
+  APP_ID = fs.readFileSync(paths.appId).toString();
+  APP_SECRET = fs.readFileSync(paths.appSecret).toString();
 } catch (e) {
-  APP_ID = '';
-  APP_SECRET = '';
+  throw new Error(`Please set your appId and appSecret first! \n ${e.message}`);
 }
 
 module.exports = {

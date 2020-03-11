@@ -7,6 +7,7 @@ module.exports = async function appSecretInterceptor (ctx, next) {
 
   if (secret !== APP_SECRET) {
     const msg = `Invalid app secret: ${secret}`;
+    ctx.status = 401;
     ctx.body = {
       code: 401,
       msg,
