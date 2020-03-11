@@ -1,9 +1,6 @@
 name: Lint and Test
 
-on:
-  push:
-    branches-ignore:
-      - 'master'
+on: [push]
 
 jobs:
   lint:
@@ -20,7 +17,6 @@ jobs:
     - run: npm install
     - run: npm run lint
       env:
-        CI: true
         development: true
   test:
     runs-on: ubuntu-latest
@@ -36,5 +32,4 @@ jobs:
     - run: npm install
     - run: NODE_ENV=development npm run test
       env:
-        CI: true
         development: true
