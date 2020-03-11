@@ -1,3 +1,5 @@
+![badge](https://github.com/zjhch123/wechat-service/workflows/Deploy/badge.svg)
+
 # Usage
 
 **Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform and set your server url in the package.json at first.**
