@@ -21,6 +21,8 @@ jobs:
           source /etc/profile
           cd ${{secrets.DEPLOY_PATH}}
           git checkout master
+          git fetch origin master
+          git reset --hard origin/master 
           git pull origin master
           npm install
           forever restart $(forever list | grep wechat | cut -c24-27)
