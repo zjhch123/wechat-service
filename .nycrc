@@ -10,8 +10,5 @@
     "src/services/**/*.js",
     "src/store/**/*.js",
     "src/utils/**/*.js"
-  ],
-  "exclude": [
-    "src/utils/date.js"
   ]
 }

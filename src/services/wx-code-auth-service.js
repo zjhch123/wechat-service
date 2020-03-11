@@ -50,7 +50,7 @@ async function postUserInfo (postdataURI, userInfo) {
       throw new Error(response.statusText);
     }
   } catch (e) {
-    throw new Error(`Remote server error. - \n ${e.message}`);
+    throw new Error(`Remote server error. - ${e.message}`);
   }
 }
 
