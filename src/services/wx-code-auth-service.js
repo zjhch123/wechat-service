@@ -28,7 +28,10 @@ async function getUserInfo (code) {
     .then(({ errcode, errmsg, ...userInfo }) => {
       if (errcode) { throw new WechatError(errcode, errmsg); }
 
-      return userInfo;
+      return {
+        ...userInfo,
+        access_token: authAccessToken,
+      };
     });
 }
 

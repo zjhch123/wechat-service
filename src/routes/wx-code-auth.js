@@ -7,6 +7,7 @@ const {
 const authErrorHandler = require('../plugins/auth-error-handler');
 const optionalSearchParamsInterceptor = require('../plugins/optional-search-params-interceptor');
 const requiredSearchParamsInterceptor = require('../plugins/required-search-params-interceptor');
+const buildURI = require('../utils/build-uri');
 
 const { auth: { postdataURI } } = package;
 
@@ -18,15 +19,15 @@ async function wxCodeAuth (ctx, next) {
     redirect_uri,
   } = ctx.request.query;
 
-  const redirectURI = decodeURIComponent(redirect_uri);
-
-  const postTarget = IS_DEV ? 'https://httpbin.org/post' : postdataURI;
-
-  logger.info(`Auth start, code: ${code}, postdata_uri: ${postTarget}, redirect_uri: ${redirectURI}`);
+  logger.info(`Auth start, code: ${code}`);
 
   const userInfo = await getUserInfo(code);
 
-  logger.info(`Auth successfully, code: ${code}, userInfo:\n${JSON.stringify(userInfo)}`);
+  logger.info(`Auth successfully, userInfo:\n${JSON.stringify(userInfo)}`);
+
+  const postTarget = IS_DEV ? 'https://httpbin.org/post' : postdataURI;
+
+  logger.info(`Auth, postdata_uri: ${postTarget}`);
 
   const response = await postUserInfo(postTarget, userInfo);
 
@@ -39,6 +40,13 @@ async function wxCodeAuth (ctx, next) {
     };
     return;
   }
+
+  const redirectURI = buildURI(decodeURIComponent(redirect_uri), '', {
+    openid: userInfo.openid,
+    access_token: userInfo.access_token,
+  });
+
+  logger.info(`Auth, redirect_uri ${redirectURI}`);
 
   ctx.redirect(redirectURI);
 }

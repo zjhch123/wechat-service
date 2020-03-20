@@ -10,5 +10,8 @@ describe('build-uri.js', () => {
     process.env.NODE_ENV = 'production';
     expect(buildURI('http://www.baidu.com', '/d/e/f', { name: 1, age: 2, test: 3 }), 'production')
       .to.equal('http://www.baidu.com/d/e/f?name=1&age=2&test=3');
+
+    expect(buildURI('http://www.baidu.com/d/e/f', '', { name: 1, age: 2, test: 3 }), 'production')
+      .to.equal('http://www.baidu.com/d/e/f?name=1&age=2&test=3');
   });
 });

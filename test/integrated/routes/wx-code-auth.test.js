@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { mockSuccessCode, mockUserInfo, mockOpenId } = require('../../test-util');
+const { mockSuccessCode, mockUserInfo, mockOpenId, mockAuthToken } = require('../../test-util');
 const { request } = require('../app');
 
 describe('wx-code-auth.js', () => {
@@ -9,6 +9,7 @@ describe('wx-code-auth.js', () => {
     expect(response.body).to.eql({
       code: 200,
       data: {
+        access_token: mockAuthToken,
         openid: mockOpenId,
         ...mockUserInfo,
       },
