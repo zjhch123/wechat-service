@@ -8,6 +8,7 @@ const {
   mockExpiredCode,
   mockOpenId,
   mockUserInfo,
+  mockAuthToken,
 } = require('../../test-util');
 
 describe('wx-code-auth-service.js', () => {
@@ -27,6 +28,7 @@ describe('wx-code-auth-service.js', () => {
     it('should get user info from wechat service', async () => {
       const retValue = await getUserInfo(mockSuccessCode);
       expect(retValue).to.eql({
+        access_token: mockAuthToken,
         openid: mockOpenId,
         ...mockUserInfo,
       });
