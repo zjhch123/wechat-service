@@ -50,7 +50,10 @@
     "node": ">=8.10.0"
   },
   "auth": {
-    "postdataURI": "https://static.hduzplus.xyz"
+    "postdataURI": "https://static.hduzplus.xyz",
+    "postdataURIHostWhitelist": [
+      "static.hduzplus.xyz"
+    ]
   },
   "wechatJSURL": "http://res2.wx.qq.com/open/js/jweixin-1.6.0.js",
   "serverURL": "https://static.hduzplus.xyz"
