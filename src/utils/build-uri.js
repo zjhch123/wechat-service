@@ -5,7 +5,7 @@ module.exports = function buildURI (host, path, searchParams) {
   const uri = new URL(path, baseHost);
 
   Object.keys(searchParams).forEach(param =>
-    uri.searchParams.append(param, encodeURIComponent(searchParams[param])));
+    uri.searchParams.append(param, searchParams[param]));
 
   return uri.toString();
 };
