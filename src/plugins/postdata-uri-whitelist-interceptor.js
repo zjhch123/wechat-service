@@ -1,6 +1,5 @@
 const { URL } = require('url');
-const { PACKAGE: package } = require('../constants');
-const { auth: { postdataURI, postdataURIHostWhitelist } } = package;
+const { config: { auth: { postdataURI, postdataURIHostWhitelist } } } = require('../constants');
 
 const defaultWhitelists = [
   '127',

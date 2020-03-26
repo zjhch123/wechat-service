@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { mockContext } = require('../../test-util');
-const { auth: { postdataURI } } = require('../../../package.json');
+const { auth: { postdataURI } } = require('../../../config/dev');
 const optionalSearchParamsInterceptor = require('../../../src/plugins/postdata-uri-whitelist-interceptor');
 
 describe('postdata-uri-whitelist-interceptor.js', () => {
