@@ -31,8 +31,9 @@ async function wxCodeAuth (ctx, next) {
   const postTarget = postdata_uri;
   logger.info(`Auth, postdata_uri: ${postTarget}`);
 
-  if (followRedirect) {
+  if (followRedirect === 'true') {
     logger.info(`Auth, follow redirect to ${postTarget}`);
+    ctx.status = 302;
     ctx.body = redirectUserInfo(postTarget, userInfo);
     return;
   }

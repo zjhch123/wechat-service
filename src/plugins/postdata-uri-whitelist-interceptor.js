@@ -27,7 +27,7 @@ module.exports = async function postdataURIWhitelistInterceptor (ctx, next) {
 
   for (let i = 0; i < postdataURIHostWhitelist.length; i += 1) {
     const whitelistHost = postdataURIHostWhitelist[i];
-    if (queryPostdataURIHost === whitelistHost) {
+    if (queryPostdataURIHost.startsWith(whitelistHost)) {
       await next();
       return;
     }
