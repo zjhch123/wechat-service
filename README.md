@@ -4,7 +4,7 @@
 
 **Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform and set your server url in the package.json at first.**
 
-You should create the `appid` and `appsecret` file in the root path before start.
+You should create the `prod.js` in `config` file and set `appid` and `appsecret` in it.
 
 ## wxShare
 
@@ -40,15 +40,20 @@ window.wxShare.setShareData({
 
 ## wxAuth
 
-**Please set the `auth.postdataURI` and `auth.postdataURIHostWhitelist` in the package.json at first.**
+**Please set the `auth.postdataURI` and `auth.postdataURIHostWhitelist` in the `config/prod.js` at first.**
 
-Redirect to `{serverPath}/wxAuth?redirect_uri={}&error_uri={}&postdata_uri={}`, server will redirect user to the wechat auth page.
+Redirect to `{serverPath}/wxAuth?redirect_uri={}&error_uri={}&postdata_uri={}&followRedirect={}`, server will redirect user to the wechat auth page.
 
-`postdata_uri` is optional, default value is the `auth.postdataURI` in package.json.
+`postdata_uri` is optional, default value is the `auth.postdataURI` in `config/prod.js`. Server will post the user information to the `postdata_uri`.
 
-After auth successfully, server will post the user information to the `postdata_uri`, then user will be redirected to the `redirect_uri` with parameters openid and access_token.
+`error_uri` is optional, default value is equal to `redirect_uri`, Server will redirect user to `error_uri` if there has any error.
 
-Server will redirect user to `error_uri` if there has any error. (`error_uri` is optional, the default value is equal to `redirect_uri`)
+`redirect_uri` is optional,
+
+1. `followRedirect` is `false`, user will be redirected to the `redirect_uri` with parameters `openid` and `access_token` after auth successfully.
+2. `followRedirect` is `true`, the param is not useful.
+
+`followRedirect` is optional, default value is `false`
 
 ### User information
 

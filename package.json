@@ -8,9 +8,9 @@
     "start": "node index.js",
     "lint": "eslint -c .eslintrc.json . --ext .js",
     "test": "NODE_ENV=development nyc --reporter=html --reporter=text-summary npm run test:all",
-    "test:all": "npm run test:unit && npm run test:integrated",
-    "test:unit": "mocha --file ./test/unit/**/*.test.js",
-    "test:integrated": "mocha --file ./test/integrated/setup.js --file ./test/integrated/**/*.test.js"
+    "test:all": "NODE_ENV=development npm run test:unit && npm run test:integrated",
+    "test:unit": "NODE_ENV=development mocha --file ./test/unit/**/*.test.js",
+    "test:integrated": "NODE_ENV=development mocha --file ./test/integrated/setup.js --file ./test/integrated/**/*.test.js"
   },
   "keywords": [
     "wechat",
@@ -24,6 +24,7 @@
     "koa": "^2.11.0",
     "koa-router": "^7.4.0",
     "node-fetch": "^2.6.0",
+    "request": "^2.88.2",
     "require-dir": "^1.2.0",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2"
@@ -49,12 +50,5 @@
   "engines": {
     "node": ">=8.10.0"
   },
-  "auth": {
-    "postdataURI": "https://static.hduzplus.xyz",
-    "postdataURIHostWhitelist": [
-      "static.hduzplus.xyz"
-    ]
-  },
-  "wechatJSURL": "http://res2.wx.qq.com/open/js/jweixin-1.6.0.js",
-  "serverURL": "https://static.hduzplus.xyz"
+  "wechatJSURL": "http://res2.wx.qq.com/open/js/jweixin-1.6.0.js"
 }
