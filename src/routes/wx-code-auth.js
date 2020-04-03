@@ -3,7 +3,6 @@ const logger = require('../logger');
 const {
   getUserInfo,
   postUserInfo,
-  redirectUserInfo,
 } = require('../services/wx-code-auth-service');
 const authErrorHandler = require('../plugins/auth-error-handler');
 const optionalSearchParamsInterceptor = require('../plugins/optional-search-params-interceptor');
@@ -18,7 +17,6 @@ async function wxCodeAuth (ctx, next) {
     code,
     redirect_uri,
     postdata_uri,
-    followRedirect,
   } = ctx.request.query;
 
   logger.info(`Auth start, code: ${code}`);
@@ -30,13 +28,6 @@ async function wxCodeAuth (ctx, next) {
   /* istanbul ignore next */
   const postTarget = postdata_uri;
   logger.info(`Auth, postdata_uri: ${postTarget}`);
-
-  if (followRedirect === 'true') {
-    logger.info(`Auth, follow redirect to ${postTarget}`);
-    ctx.status = 302;
-    ctx.body = redirectUserInfo(postTarget, userInfo);
-    return;
-  }
 
   const response = await postUserInfo(postTarget, userInfo);
   logger.info(`Post userInfo successfully, response status: ${response.status}|${response.statusText}`);
@@ -55,7 +46,6 @@ module.exports = {
   middleware: [
     requiredSearchParamsInterceptor('code'),
     optionalSearchParamsInterceptor('postdata_uri', () => postdataURI),
-    optionalSearchParamsInterceptor('followRedirect', false),
     optionalSearchParamsInterceptor('redirect_uri', ''),
     optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
     authErrorHandler,

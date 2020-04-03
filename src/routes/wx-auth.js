@@ -10,14 +10,12 @@ async function wxAuth (ctx, next) {
     redirect_uri,
     postdata_uri,
     error_uri,
-    followRedirect,
   } = ctx.request.query;
 
   const serverRedirectURI = encodeURIComponent(buildURI(serverURL, '/wxCodeAuth', {
-    ...(followRedirect ? { } : { redirect_uri }),
     ...(postdata_uri === postdataURI ? { } : { postdata_uri }),
+    redirect_uri,
     error_uri,
-    followRedirect,
   }));
 
   ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APP_ID}&redirect_uri=${serverRedirectURI}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
@@ -28,7 +26,6 @@ module.exports = {
   path: '/wxAuth',
   middleware: [
     optionalSearchParamsInterceptor('redirect_uri', ''),
-    optionalSearchParamsInterceptor('followRedirect', false),
     optionalSearchParamsInterceptor('postdata_uri', () => postdataURI),
     optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
     authErrorHandler,
