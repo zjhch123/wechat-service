@@ -27,8 +27,7 @@ module.exports = {
   path: '/wxAuth',
   middleware: [
     optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
-    requiredSearchParamsInterceptor('redirect_uri'),
-    requiredSearchParamsInterceptor('service_id'),
+    requiredSearchParamsInterceptor('redirect_uri', 'service_id'),
     authErrorHandler,
     authServicesInterceptor,
     wxAuth,

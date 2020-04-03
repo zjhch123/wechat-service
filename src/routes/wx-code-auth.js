@@ -44,9 +44,7 @@ module.exports = {
   type: 'get',
   path: '/wxCodeAuth',
   middleware: [
-    requiredSearchParamsInterceptor('code'),
-    requiredSearchParamsInterceptor('service_id'),
-    requiredSearchParamsInterceptor('redirect_uri'),
+    requiredSearchParamsInterceptor('code', 'redirect_uri', 'service_id'),
     optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
     authErrorHandler,
     authServicesInterceptor,
