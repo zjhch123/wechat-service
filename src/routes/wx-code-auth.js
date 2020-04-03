@@ -1,4 +1,4 @@
-const { config: { auth: { postdataURI } } } = require('././../constants');
+const { config: { auth: { services } } } = require('././../constants');
 const logger = require('../logger');
 const {
   getUserInfo,
@@ -7,7 +7,7 @@ const {
 const authErrorHandler = require('../plugins/auth-error-handler');
 const optionalSearchParamsInterceptor = require('../plugins/optional-search-params-interceptor');
 const requiredSearchParamsInterceptor = require('../plugins/required-search-params-interceptor');
-const postDataURIWhitelistInterceptor = require('../plugins/postdata-uri-whitelist-interceptor');
+const authServicesInterceptor = require('../plugins/auth-services-interceptor');
 const buildURI = require('../utils/build-uri');
 
 async function wxCodeAuth (ctx, next) {
@@ -16,7 +16,7 @@ async function wxCodeAuth (ctx, next) {
   const {
     code,
     redirect_uri,
-    postdata_uri,
+    service_id,
   } = ctx.request.query;
 
   logger.info(`Auth start, code: ${code}`);
@@ -25,9 +25,9 @@ async function wxCodeAuth (ctx, next) {
 
   logger.info('Auth successfully, userInfo:\n%O', userInfo);
 
-  /* istanbul ignore next */
-  const postTarget = postdata_uri;
-  logger.info(`Auth, postdata_uri: ${postTarget}`);
+  const service = services.filter(({ id }) => id === service_id)[0];
+  const postTarget = service.url;
+  logger.info(`Auth, service: ${JSON.stringify(service)}`);
 
   const response = await postUserInfo(postTarget, userInfo);
   logger.info(`Post userInfo successfully, response status: ${response.status}|${response.statusText}`);
@@ -45,11 +45,11 @@ module.exports = {
   path: '/wxCodeAuth',
   middleware: [
     requiredSearchParamsInterceptor('code'),
-    optionalSearchParamsInterceptor('postdata_uri', () => postdataURI),
-    optionalSearchParamsInterceptor('redirect_uri', ''),
+    requiredSearchParamsInterceptor('service_id'),
+    requiredSearchParamsInterceptor('redirect_uri'),
     optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
     authErrorHandler,
-    postDataURIWhitelistInterceptor,
+    authServicesInterceptor,
     wxCodeAuth,
   ],
 };
