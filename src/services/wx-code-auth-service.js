@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const request = require('request');
 const WechatError = require('../errors/wechat-error');
 const { APP_ID, APP_SECRET, JSON_CONTENT_TYPE } = require('../constants');
 
@@ -58,16 +57,7 @@ async function postUserInfo (postdataURI, userInfo) {
   }
 }
 
-function redirectUserInfo (postdataURI, userInfo) {
-  return request.post(postdataURI, {
-    method: 'post',
-    json: true,
-    body: userInfo,
-  });
-}
-
 module.exports = {
   getUserInfo,
   postUserInfo,
-  redirectUserInfo,
 };

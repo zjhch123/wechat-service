@@ -1,23 +1,22 @@
-const { APP_ID, config: { auth: { postdataURI }, serverURL } } = require('../constants');
+const { APP_ID, config: { serverURL } } = require('../constants');
 const authErrorHandler = require('../plugins/auth-error-handler');
+const authServicesInterceptor = require('../plugins/auth-services-interceptor');
 const optionalSearchParamsInterceptor = require('../plugins/optional-search-params-interceptor');
-const postDataURIWhitelistInterceptor = require('../plugins/postdata-uri-whitelist-interceptor');
+const requiredSearchParamsInterceptor = require('../plugins/required-search-params-interceptor');
 const buildURI = require('../utils/build-uri');
 
 async function wxAuth (ctx, next) {
   await next();
   const {
     redirect_uri,
-    postdata_uri,
+    service_id,
     error_uri,
-    followRedirect,
   } = ctx.request.query;
 
   const serverRedirectURI = encodeURIComponent(buildURI(serverURL, '/wxCodeAuth', {
-    ...(followRedirect ? { } : { redirect_uri }),
-    ...(postdata_uri === postdataURI ? { } : { postdata_uri }),
+    service_id,
+    redirect_uri,
     error_uri,
-    followRedirect,
   }));
 
   ctx.redirect(`https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APP_ID}&redirect_uri=${serverRedirectURI}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`);
@@ -27,12 +26,10 @@ module.exports = {
   type: 'get',
   path: '/wxAuth',
   middleware: [
-    optionalSearchParamsInterceptor('redirect_uri', ''),
-    optionalSearchParamsInterceptor('followRedirect', false),
-    optionalSearchParamsInterceptor('postdata_uri', () => postdataURI),
     optionalSearchParamsInterceptor('error_uri', (ctx) => ctx.query.redirect_uri),
+    requiredSearchParamsInterceptor('redirect_uri', 'service_id'),
     authErrorHandler,
-    postDataURIWhitelistInterceptor,
+    authServicesInterceptor,
     wxAuth,
   ],
 };

@@ -24,7 +24,6 @@
     "koa": "^2.11.0",
     "koa-router": "^7.4.0",
     "node-fetch": "^2.6.0",
-    "request": "^2.88.2",
     "require-dir": "^1.2.0",
     "winston": "^3.2.1",
     "winston-daily-rotate-file": "^4.4.2"
