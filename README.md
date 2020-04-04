@@ -2,7 +2,7 @@
 
 # Usage
 
-**Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform and set your server url in the `package.json` at first.**
+**Please add your server IP and domain to the whitelist in the Wechat Official Accounts Platform and set your server url in the `config/prod.js` at first.**
 
 You should create the `prod.js` in `config` file and set `appid` and `appsecret` in it.
 
