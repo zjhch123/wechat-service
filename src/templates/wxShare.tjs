@@ -4,6 +4,7 @@
   const isDebugMode = window.location.href.indexOf(debugFlag) !== -1;
   const wxConfig = Object.assign({ jsApiList: [], readyCallback: undefined, readyCallbacks: [] }, window.wxConfig);
   const jsApiList = ['updateAppMessageShareData', 'updateTimelineShareData', ...wxConfig.jsApiList];
+  const pageIcon = document.querySelector('link[rel~="icon"]');
 
   const data = @{ssr_jsConfig};
   
