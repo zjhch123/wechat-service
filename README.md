@@ -66,3 +66,14 @@ Redirect to `{serverPath}/wxAuth?redirect_uri={}&error_uri={}&service_id={}`, se
   "privilege": []
 }
 ```
+
+## wxConfig
+
+```javascript
+window.wxConfig = {
+  jsApiList: ['', ''],
+  readyCallback: () => {
+    wx.updateAppMessageShareData(xxxx)
+  }
+}
+```
