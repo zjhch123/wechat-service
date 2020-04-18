@@ -1,12 +1,14 @@
-window.wxShare = (() => {
+;(() => {
   const _noop_ = () => {};
   const debugFlag = 'wxsharedebug=true';
   const isDebugMode = window.location.href.indexOf(debugFlag) !== -1;
-  const jsApiList = ['updateAppMessageShareData', 'updateTimelineShareData'];
-  const pageIcon = document.querySelector('link[rel~="icon"]');
+  const wxConfig = Object.assign({ jsApiList: [], readyCallback: undefined, readyCallbacks: [] }, window.wxConfig);
+  const jsApiList = ['updateAppMessageShareData', 'updateTimelineShareData', ...wxConfig.jsApiList];
 
   const data = @{ssr_jsConfig};
   
+  wx.config({ ...data, debug: isDebugMode, jsApiList });
+
   const updateShareData = (config = {}) => {
     const {
       title = document.title,
@@ -19,14 +21,16 @@ window.wxShare = (() => {
     wx.ready(() => {
       wx.updateAppMessageShareData({ title, desc, link, imgUrl, success: callback });
       wx.updateTimelineShareData({ title, link, imgUrl, success: callback });
-    })
+    });
   };
 
-  wx.config({ ...data, debug: isDebugMode, jsApiList });
+  wx.ready(() => {
+    window.wxShareConfig && updateShareData(window.wxShareConfig);
+    wxConfig.readyCallback && wxConfig.readyCallback();
+    wxConfig.readyCallbacks && wxConfig.readyCallbacks.forEach(callback => callback());
+  });
 
-  window.wxShareConfig && updateShareData(window.wxShareConfig);
-
-  return {
+  window.wxShare = {
     setShareData: config => updateShareData(config),
   };
 })();
